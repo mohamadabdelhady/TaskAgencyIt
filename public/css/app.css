@@ -1,0 +1,106 @@
+html {
+    font-size: 14px!important;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px!important;
+    }
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+
+    margin-bottom: 0px;
+    background-color: #f9fdfa;
+
+}
+main{
+    min-height: 60vh;
+    margin-bottom: 60px;
+}
+.my-btn{
+    background-color: #2A6274!important;
+    color: white!important;
+}
+.my-btn:hover{
+    background-color: white!important;
+    color:#2A6274 !important;
+    border: 1px solid #2A6274!important;
+}
+.my-btn:focus{
+    box-shadow: 0px 1px 1px rgba(67, 183, 155,.5) !important;
+}
+.my-form{
+    width: 35vw;
+    margin-top: 10vh;
+    padding: 20px;
+    border: 1px solid rgb(111, 122, 130) !important;
+    margin-bottom: 15vh;
+}
+
+.form-control:focus{
+    border-color: #6f7a82!important;
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgb(111, 122, 130) !important;
+}
+a{
+    text-decoration: none !important;
+    color: #63797f !important;
+}
+a:hover{
+    text-decoration: none;
+    color: rgb(111, 122, 130);
+}
+.signup-icon{
+    height: 50px;
+    width: 50px;
+    margin: 10px;
+}
+.my-form p{
+    font-size: small;
+}
+/*.main-menu{*/
+/*    margin-right: 10%;*/
+/*    position: absolute;*/
+/*    display: inline-block;*/
+/*    right: 0;*/
+/*}*/
+
+.arrow {
+    border: solid #2F4858;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 3px;
+    margin-left: 10px;
+}
+.down {
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+}
+.menu-content .dropdown-item{
+    margin-bottom: 2px;
+}
+.show {display:block;}
+#userAvatar{
+
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+.card{
+    border-color: #6f7a82 !important;
+}
+.form-floating > .bi-calendar-date + .datepicker_input + label {
+    padding-left: 3.5rem;
+    z-index: 3;
+}
+.Loader{
+    text-align: center;
+    z-index: 3;
+    display: none;
+}
+
