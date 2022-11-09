@@ -51,11 +51,13 @@
                     let card=`<span class="card me-1 ms-1 d-inline-flex mt-1" style="width: 25rem;">
                 <div class="card-body">
                     <h5 class="card-title">${project.name}</h5>
-                    <p class="card-text">${abbreviate(project.description)} <a href="" onclick="event.preventDefault(); viewProject(${project.id})" data-bs-toggle="modal" data-bs-target="#viewModal">read more</a></p>
+                    <p class="card-text">${abbreviate(project.description)} <a id="more" href="" onclick="event.preventDefault(); viewProject(${project.id})" data-bs-toggle="modal" data-bs-target="#viewModal" style="display:none;">read more</a></p>
                     <p>By ${project.createdBy}</p>
                     <div>
                         <a href="" class="me-2" onclick="event.preventDefault(); viewProject(${project.id})" data-bs-toggle="modal" data-bs-target="#viewModal">view</a>
                         <a href="update/${project.id}" class="me-2" >Update</a>
+                        <a href="Create_task/${project.id}" class="me-2" >add task</a>
+                        <a href="Assign_task/${project.id}" class="me-2" >assign task</a>
                         <a href="delete_project/${project.id}" style="color: darkred!important;" class="float-end">Delete</a>
                     </div>
                 </div>
@@ -74,7 +76,7 @@
         if(count>150) {
             console.count(count);
             text = text.slice(0,250);
-            text+=" .....";
+            text+=" .....(click view to read more)";
         }
         return text;
     }

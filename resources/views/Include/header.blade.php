@@ -12,7 +12,7 @@
 <header>
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
         <div class="container">
-            <a class="navbar-brand">WorkLog</a>
+            <a class="navbar-brand" href="/">WorkLog</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -36,5 +36,9 @@
         </div>
     </nav>
 </header>
+<div class="alert alert-warning alert-dismissible fade m-auto" id="alert-pop" role="alert" style="display:none;">
+    <p id="notification message"></p>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
 <script>
 </script>

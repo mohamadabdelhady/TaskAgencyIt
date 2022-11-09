@@ -84,7 +84,7 @@ a:hover{
 .menu-content .dropdown-item{
     margin-bottom: 2px;
 }
-.show {display:block;}
+
 #userAvatar{
 
     width: 40px;
@@ -103,4 +103,9 @@ a:hover{
     z-index: 3;
     display: none;
 }
-
+.alert{
+    width: 80%;
+}
+.show{
+    display: block!important;
+}
