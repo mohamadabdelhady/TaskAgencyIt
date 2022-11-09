@@ -15,6 +15,9 @@ return new class extends Migration
     {
         Schema::create('assignments', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('employeeId');
+            $table->foreignId('taskId');
+            $table->foreignId('projectId');
             $table->timestamps();
         });
     }

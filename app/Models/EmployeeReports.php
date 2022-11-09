@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class assignment extends Model
+class EmployeeReports extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'assignments',
-        'taskId',
+        'assignmentId',
+        'report',
     ];
 }

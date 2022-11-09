@@ -38,7 +38,7 @@
 </header>
 <div class="alert alert-warning alert-dismissible fade m-auto" id="alert-pop" role="alert" style="display:none;">
     <p id="notification message"></p>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    <button type="button" class="btn-close"  onclick="event.preventDefault(); document.getElementById('alert-pop').classList.remove('show')" aria-label="Close"></button>
 </div>
 <script>
 </script>

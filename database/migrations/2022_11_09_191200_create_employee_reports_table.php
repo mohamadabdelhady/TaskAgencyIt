@@ -13,13 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tasks', function (Blueprint $table) {
+        Schema::create('employee_reports', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('projectId');
-            $table->string('name');
-            $table->text('description');
-            $table->date('deadline');
-            $table->string('status')->default('Open');
+            $table->foreignId('assignmentId');
+            $table->text('report');
             $table->timestamps();
         });
     }
@@ -31,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tasks');
+        Schema::dropIfExists('employee_reports');
     }
 };

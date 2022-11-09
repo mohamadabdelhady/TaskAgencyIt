@@ -19,6 +19,7 @@ return new class extends Migration
             $table->text('description');
             $table->date('deadline');
             $table->string('createdBy');
+            $table->string('status')->default('Open');
             $table->timestamps();
         });
     }
