@@ -40,14 +40,15 @@ Route::middleware('auth')->group(function () {
         Route::get('/Assign_task/{id}', [\App\Http\Controllers\tasks::class, 'assignTaskIndex']);
         Route::get('/getTasks', [\App\Http\Controllers\tasks::class, 'loadAllTasks']);
         Route::get('/getAllEmployees', [\App\Http\Controllers\tasks::class, 'getAllEmployees']);
-        Route::post('/saveAssignment', [\App\Http\Controllers\tasks::class, 'saveAssignment']);
-        Route::get('/saveAssignment', [\App\Http\Controllers\tasks::class, 'saveAssignment']);
+        Route::post('/SaveAssignment', [\App\Http\Controllers\tasks::class, 'SaveAssignment']);
+        Route::get('/DeleteAssignment/{id}/{employee}', [\App\Http\Controllers\tasks::class, 'DeleteAssignment']);
         Route::get('/deleteTask/{id}', [\App\Http\Controllers\tasks::class, 'deleteTask']);
         Route::post('/updateProject/{id}', [\App\Http\Controllers\projects::class, 'updateProject']);
         Route::get('/updateTask/{id}', [\App\Http\Controllers\tasks::class, 'updateTaskIndex']);
         Route::post('/updateTask/{id}', [\App\Http\Controllers\tasks::class, 'updateTask']);
         Route::get('/getProjectAssignedEmployees/{id}', [\App\Http\Controllers\projects::class, 'getProjectAssignedEmployees']);
         Route::get('/getTasksAssignedEmployees/{id}', [\App\Http\Controllers\tasks::class, 'getTasksAssignedEmployees']);
+        Route::get('/getReport/{id}', [\App\Http\Controllers\tasks::class, 'getReport']);
     });
     Route::get('/getMyTasks', [\App\Http\Controllers\tasks::class, 'getMyTasks']);
     Route::get('/getMyProjects', [\App\Http\Controllers\projects::class, 'getMyProjects']);

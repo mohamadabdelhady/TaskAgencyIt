@@ -44,18 +44,21 @@ class tasks extends Controller
         return json_encode($employees);
     }
 
-    public function saveAssignment(Request $request)
+    public function SaveAssignment(Request $request)
     {
-        $assignments=$request->assignments;
-//
-        foreach ($assignments as $item) {
             $assignment =new assignment;
-            $assignment->employeeId=$item['employeeId'];
-            $assignment->taskId=$item['taskId'];
-            $assignment->projectId=$item['projectId'];
+            $assignment->employeeId=$request->employeeId;
+            $assignment->taskId=$request->taskId;
+            $assignment->projectId=$request->projectId;
             $assignment->save();
-            }
         return response('Task assigned successfully',200);
+    }
+    public function DeleteAssignment($id,$employee)
+    {
+        $assignment=assignment::where('taskId',$id)->where('employeeId',$employee)->get();
+
+        $assignment->each->delete();
+        return response('Task assignment deleted successfully',200);
     }
     public function deleteTask($id)
     {
@@ -110,5 +113,11 @@ class tasks extends Controller
        else
            return response("You can't re-submit a task.");
     }
+
+    function getReport($id)
+        {
+            $report=EmployeeReports::whereIn('assignmentId',assignment::where('taskId',$id)->select('id')->get())->select('report')->first();
+            return json_encode($report['report']);
+        }
 
 }

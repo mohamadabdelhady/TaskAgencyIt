@@ -37,6 +37,22 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="submitModal" tabindex="-1" aria-labelledby="submitModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="submitModalLabel">submition report</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="submitModalBody">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="container">
     <h2 class="mt-2">task of : {{$projectName->name}}</h2>
     <div class="row">
@@ -65,27 +81,29 @@
         document.getElementById('load').style.display="block";
         axios.get('/getTasks')
             .then(response => {
-                $.each(response.data, (key, v) => {
-                    tasks.push(v);
-                });
-
-                tasks.forEach((task,index)=>{
+                response.data.forEach((task,index)=>{
                     count++;
                     let card=`<span class="card me-1 ms-1 d-inline-flex mt-1" style="width: 20rem;">
                 <div class="card-body">
                     <h5 class="card-title">${task.name}</h5>
                     <p class="card-text">${abbreviate(task.description,task.id)} <span id="read-more"></span></p>
                     <div>
-                        <a href="" class="me-2" onclick="event.preventDefault(); viewtask(${task.id})" data-bs-toggle="modal" data-bs-target="#viewModal">view</a>
+                        <a href="" class="me-2" onclick="event.preventDefault(); viewtask(${task.id},${task.projectId})" data-bs-toggle="modal" data-bs-target="#viewModal">view</a>
                         <a href="/updateTask/${task.id}" class="me-2" >Update</a>
-                        <a href="AssignTask/${task.id}" class="me-2" onclick="event.preventDefault(); loadEmployees(${task.id},${task.projectId})" data-bs-toggle="modal" data-bs-target="#assignModal">assign Employee</a>
+                        <a href="AssignTask/${task.id}" id="view" class="me-2" data-bs-toggle="modal" data-bs-target="#assignModal" onclick="setSelected(${task.id},${task.projectId})">assign</a>
                         <a href="/deleteTask/${task.id}" style="color: darkred!important;" class="float-end">Delete</a>
                     </div>
                 </div>
             </span>`
                     let area = document.getElementById('all-tasks');
                     area.innerHTML+=card;
+                    if(task.status=="Submited") {
+
+                        document.getElementById('view').insertAdjacentHTML('afterend', `<a href="/submitTask/${task.id}" class="me-2" onclick="event.preventDefault(); viewReport(${task.id})" data-bs-toggle="modal" data-bs-target="#submitModal" id="submit">view report</a>`);
+
+                    }
                 })
+
             });
         document.getElementById('load').style.display="none";
         if(count=0)
@@ -93,6 +111,8 @@
             let area = document.getElementById('no-task');
             area.innerHTML='There is currently no tasks.';
         }
+        loadEmployees();
+
 
     });
 
@@ -109,72 +129,73 @@
         return text;
     }
 
-    function viewtask(id)
+    let selectedTaskId;
+    let projectId;
+    function setSelected(id,projectid)
     {
+        selectedTaskId=id;
+        projectId=projectid;
+    }
+    function viewtask(id,projectid)
+    {
+        selectedTaskId=id;
+        projectId=projectid;
         let selectedCard=tasks.find(element=>element.id==id);
         document.getElementById('viewModalLabel').innerHTML=selectedCard.name;
         document.getElementById('viewModalBody').innerHTML=selectedCard.description;
     }
 
-
-    let employees = [];
-    let selectedTaskId;
-    let projectId;
-    function loadEmployees(id,projectid) {
-        selectedTaskId=id;
-        projectId=projectid;
-        employees=[];
+    function loadEmployees() {
         let assigned;
         let area = document.getElementById('all-employees');
         area.innerHTML="";
-        axios.get('/getTasksAssignedEmployees/'+id).then(response=>{
+        axios.get('/getTasksAssignedEmployees/'+selectedTaskId).then(response=>{
             assigned=response.data;
         })
         axios.get('/getAllEmployees').then(response => {
-            $.each(response.data, (key, v) => {
-                employees.push(v);
-            });
-            area.innerHTML="";
-            employees.forEach((employee, index) => {
-                if(employee.id!=assigned[index].id) {
+            response.data.forEach((employee, index) => {
                     let item = `
 <div class="form-check">
-  <input class="form-check-input" type="checkbox" id="flexCheck${employee.id}" name="option${employee.id}" value="${employee.id}" >
+  <input class="form-check-input" type="checkbox" id="flexCheck${employee.id}" name="option${employee.id}" value="${employee.id}" onclick="assign(${employee.id})">
   <label class="form-check-label">${employee.name}</label>
 </div>`;
                     area.innerHTML += item;
-                }
-                else
-                    area.innerHTML += "no unassigned employee";
                 }
             )
         });
 
     }
-    function assignEmployee()
+    function assign(id)
     {
-        document.getElementById('action-loader').style.display="block";
-        document.getElementById('action').style.display="none";
-        let Assignments=[];
-        employees.forEach((employee, index) => {
-            let value=document.getElementById('flexCheck'+employee.id).value;
-            if(document.getElementById('flexCheck'+employee.id).checked)
-                Assignments.push({"taskId":selectedTaskId,"employeeId":value,"projectId":projectId});
-        });
-        console.log(Assignments);
-        axios.post('/saveAssignment',{
-            assignments:Assignments,
-        }).then(response=>{
-            document.getElementById('notification message').innerText=response.data;
-            document.getElementById('alert-pop').classList.add('show');
-            document.getElementById('closeModal').click();
+        if(document.getElementById('flexCheck'+id).checked)
+        {
+            let value=document.getElementById('flexCheck'+id).value;
 
-            employees.forEach((employee, index) => {
-                document.getElementById('flexCheck' + employee.id).checked = 0;
-            });
+            axios.post('/SaveAssignment',{
+                taskId:selectedTaskId,
+                employeeId:value,
+                projectId:id
+            }).then(response=>{
+                document.getElementById('notification message').innerText=response.data;
+                document.getElementById('alert-pop').classList.add('show');
+                document.getElementById('closeModal').click();
+            })
+        }
+        else
+        {
+            let value=document.getElementById('flexCheck'+id).value;
+            axios.get('/DeleteAssignment/'+selectedTaskId+"/"+value).then(response=>{
+                document.getElementById('notification message').innerText=response.data;
+                document.getElementById('alert-pop').classList.add('show');
+                document.getElementById('closeModal').click();
 
-            document.getElementById('action').style.display="block";
-            document.getElementById('action-loader').style.display="none";
+            })
+        }
+    }
+    function viewReport(id)
+    {
+        axios.get('/getReport/'+id).then(response=>{
+            document.getElementById('submitModalBody').innerHTML=response.data;
         })
     }
 </script>
