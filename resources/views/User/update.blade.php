@@ -42,7 +42,6 @@
                 <div class="form-floating mt-2">
                 <select class="form-select" aria-label="Default select example" id="selectStatus">
                     <option value="Open" id="optionOpen">Open</option>
-                    <option value="Under development" id="optionUnder development">Under development</option>
                     <option value="Finished" id="optionFinished">Finished</option>
                     <option value="Aborted" id="optionAborted">Aborted</option>
                 </select>
