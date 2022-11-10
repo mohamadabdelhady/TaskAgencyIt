@@ -16,6 +16,11 @@ class tasks extends Controller
     }
     public function createTask(Request $request)
     {
+        $request->validate([
+            'name' => 'required',
+            'deadline' => 'required',
+            'description' => 'required',
+        ]);
         $task= new \App\Models\tasks;
         $task->name=$request->name;
         $task->description=$request->description;
@@ -74,6 +79,12 @@ class tasks extends Controller
 
     public function updateTask($id,Request $request)
     {
+        $request->validate([
+            'name' => 'required',
+            'deadline' => 'required',
+            'description' => 'required',
+            'status' => 'required',
+        ]);
         $Task=\App\Models\tasks::find($id);
         $Task->name=$request['name'];
         $Task->deadline=$request['deadline'];
@@ -99,6 +110,9 @@ class tasks extends Controller
         $check=\App\Models\assignment::where('employeeId',auth()->id())->where('taskId',$request['taskId'])->first();
 
        if($check=="") {
+           $request->validate([
+               'report' => 'required',
+           ]);
            $report = new EmployeeReports;
            $taskID = assignment::where('taskId', $request['taskId'])->select('taskId')->first();
            $report->assignmentId = $taskID['taskId'];

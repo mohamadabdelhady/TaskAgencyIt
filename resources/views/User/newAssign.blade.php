@@ -104,7 +104,10 @@
                     }
                 })
 
-            });
+            }).catch(()=> {
+            document.getElementById('alert-pop').classList.add('show');
+            document.getElementById('notification message').innerText ="Something went wrong and we couldn't execute your request";
+        });
         document.getElementById('load').style.display="none";
         if(count=0)
         {

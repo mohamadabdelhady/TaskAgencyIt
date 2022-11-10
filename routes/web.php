@@ -36,7 +36,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/update/{id}', [\App\Http\Controllers\projects::class, 'updateProjectIndex']);
         Route::get('/Create_task/{id}', [\App\Http\Controllers\tasks::class, 'createTaskIndex']);
         Route::post('/createTask', [\App\Http\Controllers\tasks::class, 'createTask']);
-        Route::get('/createTask', [\App\Http\Controllers\tasks::class, 'createTask']);
+
         Route::get('/Assign_task/{id}', [\App\Http\Controllers\tasks::class, 'assignTaskIndex']);
         Route::get('/getTasks', [\App\Http\Controllers\tasks::class, 'loadAllTasks']);
         Route::get('/getAllEmployees', [\App\Http\Controllers\tasks::class, 'getAllEmployees']);

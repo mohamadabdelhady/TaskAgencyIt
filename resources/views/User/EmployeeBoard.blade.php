@@ -88,7 +88,10 @@
                     document.getElementById('view').insertAdjacentHTML('afterend',`<a href="/submitTask/${task.id}" class="me-2" onclick="event.preventDefault(); ViewSubmitTask(${task.id})" data-bs-toggle="modal" data-bs-target="#submitModal" id="submit">submit</a>`)
 
                 })
-            });
+            }).catch(()=> {
+            document.getElementById('alert-pop').classList.add('show');
+            document.getElementById('notification message').innerText ="Something went wrong and we couldn't execute your request";
+        });
         document.getElementById('load').style.display="none";
         if(count=0)
         {
@@ -98,7 +101,10 @@
 
         axios.get('/getMyProjects').then(response=>{
             projects=response.data;
-        })
+        }).catch(()=> {
+            document.getElementById('alert-pop').classList.add('show');
+            document.getElementById('notification message').innerText ="Something went wrong and we couldn't execute your request";
+        });
     });
 
     function abbreviate(text,id)
@@ -165,12 +171,9 @@
             document.getElementById('action').style.display="block";
             document.getElementById('action-loader').style.display="none";
             document.getElementById('submit').innerHTML="";
-        })
+        }).catch(()=> {
+            document.getElementById('alert-pop').classList.add('show');
+            document.getElementById('notification message').innerText ="Something went wrong and we couldn't execute your request";
+        });
     }
-    // function get(status)
-    // {
-    //     if(status!="submited")
-    // {
-    //     return `<a href="/submitTask/${task.id}" class="me-2" onclick="event.preventDefault(); ViewSubmitTask(${task.id})" data-bs-toggle="modal" data-bs-target="#submitModal" id="submit">submit</a>`
-    // }}
 </script>

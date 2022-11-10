@@ -73,7 +73,10 @@
                     let area = document.getElementById('all-projects');
                     area.innerHTML+=card;
                 })
-            });
+            }).catch(()=> {
+            document.getElementById('alert-pop').classList.add('show');
+            document.getElementById('notification message').innerText ="Something went wrong and we couldn't execute your request";
+        });
         document.getElementById('load').style.display="none";
         console.log(projects)
         if(count=0)
@@ -107,6 +110,9 @@
             response.data.forEach(employee=>{
                 document.getElementById('employees').innerHTML+=`<p>${employee.name}</p>`
             })
+        }).catch(()=> {
+            document.getElementById('alert-pop').classList.add('show');
+            document.getElementById('notification message').innerText ="Something went wrong and we couldn't execute your request";
         });
 
 

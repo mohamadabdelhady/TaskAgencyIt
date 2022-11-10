@@ -40,5 +40,11 @@
     <p id="notification message"></p>
     <button type="button" class="btn-close"  onclick="event.preventDefault(); document.getElementById('alert-pop').classList.remove('show')" aria-label="Close"></button>
 </div>
-<script>
-</script>
+<div class="" style="alignment: center">
+@foreach ($errors->all() as $message)
+    <ul class="m-auto">
+    <li class="text-danger">{{$message}}</li>
+    </ul>
+@endforeach
+</div>
+

@@ -20,6 +20,12 @@ class projects extends Controller
 
     public function createNewProject(Request $request)
     {
+        $request->validate([
+            'name' => 'required',
+            'deadline' => 'required',
+            'description' => 'required',
+        ]);
+
         $project=new \App\Models\projects();
         $project->name=$request->name;
         $project->deadline=$request->deadline;
@@ -43,6 +49,12 @@ class projects extends Controller
 
     public function updateProject($id,Request $request)
     {
+        $request->validate([
+            'name' => 'required',
+            'deadline' => 'required',
+            'description' => 'required',
+            'status' => 'required',
+        ]);
         $project=\App\Models\projects::find($id);
         $project->name=$request['name'];
         $project->deadline=$request['deadline'];

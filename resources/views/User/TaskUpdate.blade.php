@@ -33,6 +33,7 @@
 </div>
 <div class="container">
     <div class="mt-4" >
+
         @csrf
         <div class="row">
             <div class="col-3">
@@ -103,6 +104,9 @@
 
             document.getElementById('action').style.display="block";
             document.getElementById('action-loader').style.display="none";
+        }).catch(()=> {
+            document.getElementById('alert-pop').classList.add('show');
+            document.getElementById('notification message').innerText ="Something went wrong and we couldn't execute your request or you forget required fields";
         });
     }
 </script>
